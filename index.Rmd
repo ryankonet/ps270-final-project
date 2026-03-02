@@ -16,7 +16,17 @@ In the last three presidential elections in the United States, which combination
 Below is the 2024 study for reference. Though the similar 2016, 2020 studies will be uploaded in the future.
 ```{r}
 library(tidyverse)
-read.csv("")
+table1 <- read.csv("anes_timeseries_2024_post_web_timings.csv")
+table2 <- read.csv("anes_timeseries_2024_pre_ftf_timings.csv")
+table3 <- read.csv("anes_timeseries_2024_pre_sps_timings.csv")
+table4 <- read.csv("anes_timeseries_2024_pre_web_timings.csv")
+table5 <- read.csv("anes_timeseries_2024_post_ftf_timings.csv")
+glimpse(table1)
+glimpse(table2)
+glimpse(table3)
+glimpse(table4)
+glimpse(table5)
+
 ```
 
 
