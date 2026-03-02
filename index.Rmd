@@ -9,6 +9,14 @@ output:
 
 
 
-## Project thoughts
+## Project proposal
 
-I am interested in exploring data related to the relationship between identity and electoral behavior. I am also interested in exploring the relationship between identity and certain political stances. 
+In the last three presidential elections in the United States, which combinations of identities by age, gender, race, and religion saw the biggest shifts from 2016 to 2024 in either direction? I believe that the greatest shift toward democrat presidential tickets (Clinton-Kane, Biden-Harris, Harris-Walz) will be young females, certain racial minorities, and atheists. I believe the greatest shift toward republican presidential tickets (Trump-Pence, Trump-Pence, Trump-Vance) will be young men, Whites and Hispanics, and Christian. The explanatory variables are age, gender, race, religion, and the combinations that these variables can make as compounds of intersectional identities. Each variable will exist across all three elections and be compared from election to election and the change will be measured. The outcome variable, which is the percent vote for either candidate (some third parties might be listed in order to see if there were any spoilers that could effect the phenomena), will also be adjusted proportionally for the percent vote in the election as a whole in order to avoid winning elections skewing the phenomena. Support or disapproval of my hypothesis is contigent on whether or not those groups or groups that are similar turn out to have the biggest change.
+
+Below is the 2024 study for reference. Though the similar 2016, 2020 studies will be uploaded in the future.
+```{r}
+library(tidyverse)
+read.csv("")
+```
+
+
