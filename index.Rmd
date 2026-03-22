@@ -16,17 +16,14 @@ In the last three presidential elections in the United States, which combination
 Below is the 2024 study for reference. Though the similar 2016, 2020 studies will be uploaded in the future.
 ```{r}
 library(tidyverse)
-table1 <- read.csv("anes_timeseries_2024_post_web_timings.csv")
-table2 <- read.csv("anes_timeseries_2024_pre_ftf_timings.csv")
-table3 <- read.csv("anes_timeseries_2024_pre_sps_timings.csv")
-table4 <- read.csv("anes_timeseries_2024_pre_web_timings.csv")
-table5 <- read.csv("anes_timeseries_2024_post_ftf_timings.csv")
-glimpse(table1)
-glimpse(table2)
-glimpse(table3)
-glimpse(table4)
-glimpse(table5)
+pres_2020 <- read_csv("pres_data/2020_US_County_Level_Presidential_Results.csv")
+pres_2020 <- pres_2020 |> select(-votes_dem, -per_dem, -diff, -per_point_diff) |> rename(votes_gop_2020 = votes_gop, per_gop_2020 = per_gop, total_votes_2020 = total_votes)
+pres_2024 <- read_csv("pres_data/2024_US_County_Level_Presidential_Results.csv")
+pres_2024 <- pres_2024 |> select(-votes_dem, -per_dem, -diff, -per_point_diff) |> rename(votes_gop_2024 = votes_gop, per_gop_2024 = per_gop, total_votes_2024 = total_votes)
+pop_2024 <- read_csv("pop_data/co-est2024-alldata.csv")
+percent_gop <- left_join(pres_2020, pres_2024)
 
+head(percent_gop)
 ```
 
 
