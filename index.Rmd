@@ -17,13 +17,84 @@ Below is the 2024 study for reference. Though the similar 2016, 2020 studies wil
 ```{r}
 library(tidyverse)
 pres_2020 <- read_csv("pres_data/2020_US_County_Level_Presidential_Results.csv")
-pres_2020 <- pres_2020 |> select(-votes_dem, -per_dem, -diff, -per_point_diff) |> rename(votes_gop_2020 = votes_gop, per_gop_2020 = per_gop, total_votes_2020 = total_votes)
-pres_2024 <- read_csv("pres_data/2024_US_County_Level_Presidential_Results.csv")
-pres_2024 <- pres_2024 |> select(-votes_dem, -per_dem, -diff, -per_point_diff) |> rename(votes_gop_2024 = votes_gop, per_gop_2024 = per_gop, total_votes_2024 = total_votes)
-pop_2024 <- read_csv("pop_data/co-est2024-alldata.csv")
-percent_gop <- left_join(pres_2020, pres_2024)
+pres_2020 <- pres_2020 |> filter(state_name != "Alaska", state_name != "Connecticut", 
+                                 state_name != "District of Columbia")
+pres_2020 <- pres_2020 |> select(-votes_dem, -per_dem, -diff, -per_point_diff) |> 
+  rename(votes_gop_2020 = votes_gop, per_gop_2020 = per_gop, total_votes_2020 = total_votes)
 
-head(percent_gop)
+pres_2024 <- read_csv("pres_data/2024_US_County_Level_Presidential_Results.csv")
+pres_2024 <- pres_2024 |> filter(state_name != "Alaska", state_name != "Connecticut", 
+                                 state_name != "District of Columbia")
+pres_2024 <- pres_2024 |> select(-votes_dem, -per_dem, -diff, -per_point_diff) |> 
+  rename(votes_gop_2024 = votes_gop, per_gop_2024 = per_gop, total_votes_2024 = total_votes)
+
+pop_2024 <- read_csv("pop_data/co-est2024-alldata.csv")
+pop_2024 <- pop_2024 |> filter(STNAME != "Alaska", STNAME != "Connecticut", STNAME != "District of Columbia")
+pop_2024 <- pop_2024 |> mutate(county_fips = paste0(STATE, COUNTY)) |> 
+  mutate(dom_mig_total = (DOMESTICMIG2020 + DOMESTICMIG2021 + DOMESTICMIG2022 + DOMESTICMIG2023 + DOMESTICMIG2024)) |> 
+  mutate (dom_mig_per = dom_mig_total / ESTIMATESBASE2020) |> mutate(population_2020 = ESTIMATESBASE2020)
+```
+```{r}
+pop_2024_important <- pop_2024 |> select(county_fips, dom_mig_total, dom_mig_per, population_2020)
+
+pop_2024_50_states <- pop_2024 |> filter(STNAME == CTYNAME) |> 
+  arrange(desc(dom_mig_per)) |>
+  select(STNAME, dom_mig_per, population_2020) 
+
+percent_gop <- left_join(pres_2020, pres_2024) |> mutate(per_gop_change = per_gop_2024 - per_gop_2020)
+percent_gop <- left_join(percent_gop, pop_2024_important, by = "county_fips")
+
+focused_per_gop <- percent_gop |> select(county_fips, state_name, per_gop_change, dom_mig_per, population_2020)
+
+percent_gop_50_states <- percent_gop |> group_by(state_name) |> 
+  summarize(dom_mig_total = sum(dom_mig_total), population_2020 = sum(population_2020), gop_2020 = sum(votes_gop_2020),
+            gop_2024 = sum(votes_gop_2024), total_2020 = sum(total_votes_2020), total_2024 = sum(total_votes_2024))
+
+percent_gop_50_states <- percent_gop_50_states |> 
+  mutate(domestic = (dom_mig_total / population_2020), gop_2024_per = (gop_2024 / total_2024), 
+         gop_2020_per = (gop_2020 / total_2020)) |> 
+  mutate(gop_change = (gop_2024_per - gop_2020_per))
+
+percent_gop_50_states <- percent_gop_50_states |> select(state_name, gop_change, dom_mig_total, population_2020)
+
+
+print(percent_gop_50_states)
+#head(percent_gop)
+#head(pop_2024)
 ```
 
+```{r}
+plot_basic <- ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, linewidth = 2.0) + 
+  labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election", 
+       x = "Net Proportional Domestic Migration per County, 2020-2024", 
+       y = "Change in GOP Voteshare per County, 2020-2024", 
+       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics")
+plot_basic
+```
+
+
+```{r}
+plot_50k <- focused_per_gop |> filter(population_2020 > 50000) |>
+  ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+plot_50k
+```
+```{r}
+plot_10k_50k <- focused_per_gop |> filter(population_2020 >= 10000 & population_2020 <= 50000) |>
+  ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+plot_10k_50k
+```
+
+```{r}
+plot_10k <- focused_per_gop |> filter(population_2020 < 10000) |>
+  ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE)
+plot_10k
+```
 
