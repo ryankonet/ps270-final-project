@@ -1,7 +1,7 @@
 ---
 title: "PS270 Final Project"
 author: "Ryan Konet"
-description: "My final project"
+description: "The Effect of Domestic Migration on Voting Patterns"
 output:
   distill::distill_article:
     self_contained: false
@@ -9,11 +9,9 @@ output:
 
 
 
-## Project proposal
+## Project Descritption
+It is a common political complaint among conservative Americans that when people move in from out of state they "take their politics with them." The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale "survivorship bias"? In this study, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections. In order to get a holistic view, the data will be organized by state, population, et cetera.This project will seek to answer, or at a minimum strive towards answering, whether the large flow of domestic migration has a major effect on electoral behaviors.  
 
-In the last three presidential elections in the United States, which combinations of identities by age, gender, race, and religion saw the biggest shifts from 2016 to 2024 in either direction? I believe that the greatest shift toward democrat presidential tickets (Clinton-Kane, Biden-Harris, Harris-Walz) will be young females, certain racial minorities, and atheists. I believe the greatest shift toward republican presidential tickets (Trump-Pence, Trump-Pence, Trump-Vance) will be young men, Whites and Hispanics, and Christian. The explanatory variables are age, gender, race, religion, and the combinations that these variables can make as compounds of intersectional identities. Each variable will exist across all three elections and be compared from election to election and the change will be measured. The outcome variable, which is the percent vote for either candidate (some third parties might be listed in order to see if there were any spoilers that could effect the phenomena), will also be adjusted proportionally for the percent vote in the election as a whole in order to avoid winning elections skewing the phenomena. Support or disapproval of my hypothesis is contigent on whether or not those groups or groups that are similar turn out to have the biggest change.
-
-Below is the 2024 study for reference. Though the similar 2016, 2020 studies will be uploaded in the future.
 ```{r}
 library(tidyverse)
 pres_2020 <- read_csv("pres_data/2020_US_County_Level_Presidential_Results.csv")
@@ -55,7 +53,8 @@ percent_gop_50_states <- percent_gop_50_states |>
          gop_2020_per = (gop_2020 / total_2020)) |> 
   mutate(gop_change = (gop_2024_per - gop_2020_per))
 
-percent_gop_50_states <- percent_gop_50_states |> select(state_name, gop_change, dom_mig_total, population_2020)
+percent_gop_50_states <- percent_gop_50_states |> mutate(dom_mig_per = dom_mig_total/population_2020) |> select(state_name, gop_change, dom_mig_per, population_2020) |>
+  arrange(desc(dom_mig_per)) 
 
 
 print(percent_gop_50_states)

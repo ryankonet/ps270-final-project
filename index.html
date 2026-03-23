@@ -91,7 +91,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_meta_tags-->
   <title>PS270 Final Project</title>
 
-  <meta property="description" itemprop="description" content="My final project"/>
+  <meta property="description" itemprop="description" content="The Effect of Domestic Migration on Voting Patterns"/>
 
 
   <meta name="article:author" content="Ryan Konet"/>
@@ -99,19 +99,19 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="PS270 Final Project"/>
   <meta property="og:type" content="article"/>
-  <meta property="og:description" content="My final project"/>
+  <meta property="og:description" content="The Effect of Domestic Migration on Voting Patterns"/>
   <meta property="og:locale" content="en_US"/>
 
   <!--  https://dev.twitter.com/cards/types/summary -->
   <meta property="twitter:card" content="summary"/>
   <meta property="twitter:title" content="PS270 Final Project"/>
-  <meta property="twitter:description" content="My final project"/>
+  <meta property="twitter:description" content="The Effect of Domestic Migration on Voting Patterns"/>
 
   <!--/radix_placeholder_meta_tags-->
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","output"]}},"value":[{"type":"character","attributes":{},"value":["PS270 Final Project"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Ryan Konet"]}]}]},{"type":"character","attributes":{},"value":["My final project"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","author","description","output"]}},"value":[{"type":"character","attributes":{},"value":["PS270 Final Project"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name"]}},"value":[{"type":"character","attributes":{},"value":["Ryan Konet"]}]}]},{"type":"character","attributes":{},"value":["The Effect of Domestic Migration on Voting Patterns"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -1519,7 +1519,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"PS270 Final Project","description":"My final project","authors":[{"author":"Ryan Konet","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
+{"title":"PS270 Final Project","description":"The Effect of Domestic Migration on Voting Patterns","authors":[{"author":"Ryan Konet","authorURL":"#","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}]}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -1533,7 +1533,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 <!--radix_placeholder_categories-->
 <!--/radix_placeholder_categories-->
-<p>My final project</p>
+<p>The Effect of Domestic Migration on Voting Patterns</p>
 </div>
 
 <div class="d-byline">
@@ -1544,9 +1544,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="project-proposal">Project proposal</h2>
-<p>In the last three presidential elections in the United States, which combinations of identities by age, gender, race, and religion saw the biggest shifts from 2016 to 2024 in either direction? I believe that the greatest shift toward democrat presidential tickets (Clinton-Kane, Biden-Harris, Harris-Walz) will be young females, certain racial minorities, and atheists. I believe the greatest shift toward republican presidential tickets (Trump-Pence, Trump-Pence, Trump-Vance) will be young men, Whites and Hispanics, and Christian. The explanatory variables are age, gender, race, religion, and the combinations that these variables can make as compounds of intersectional identities. Each variable will exist across all three elections and be compared from election to election and the change will be measured. The outcome variable, which is the percent vote for either candidate (some third parties might be listed in order to see if there were any spoilers that could effect the phenomena), will also be adjusted proportionally for the percent vote in the election as a whole in order to avoid winning elections skewing the phenomena. Support or disapproval of my hypothesis is contigent on whether or not those groups or groups that are similar turn out to have the biggest change.</p>
-Below is the 2024 study for reference. Though the similar 2016, 2020 studies will be uploaded in the future.
+<h2 id="project-descritption">Project Descritption</h2>
+<p>It is a common political complaint among conservative Americans that when people move in from out of state they “take their politics with them.” The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale “survivorship bias”? In this study, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections. In order to get a holistic view, the data will be organized by state, population, et cetera.This project will seek to answer, or at a minimum strive towards answering, whether the large flow of domestic migration has a major effect on electoral behaviors.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span></span>
@@ -1591,24 +1590,25 @@ Below is the 2024 study for reference. Though the similar 2016, 2020 studies wil
 <span>         gop_2020_per <span class='op'>=</span> <span class='op'>(</span><span class='va'>gop_2020</span> <span class='op'>/</span> <span class='va'>total_2020</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>|&gt;</span> </span>
 <span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>gop_change <span class='op'>=</span> <span class='op'>(</span><span class='va'>gop_2024_per</span> <span class='op'>-</span> <span class='va'>gop_2020_per</span><span class='op'>)</span><span class='op'>)</span></span>
 <span></span>
-<span><span class='va'>percent_gop_50_states</span> <span class='op'>&lt;-</span> <span class='va'>percent_gop_50_states</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>state_name</span>, <span class='va'>gop_change</span>, <span class='va'>dom_mig_total</span>, <span class='va'>population_2020</span><span class='op'>)</span></span>
+<span><span class='va'>percent_gop_50_states</span> <span class='op'>&lt;-</span> <span class='va'>percent_gop_50_states</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate.html'>mutate</a></span><span class='op'>(</span>dom_mig_per <span class='op'>=</span> <span class='va'>dom_mig_total</span><span class='op'>/</span><span class='va'>population_2020</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>state_name</span>, <span class='va'>gop_change</span>, <span class='va'>dom_mig_per</span>, <span class='va'>population_2020</span><span class='op'>)</span> <span class='op'>|&gt;</span></span>
+<span>  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>dom_mig_per</span><span class='op'>)</span><span class='op'>)</span> </span>
 <span></span>
 <span></span>
 <span><span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>percent_gop_50_states</span><span class='op'>)</span></span></code></pre>
 </div>
 <pre><code># A tibble: 48 × 4
-   state_name gop_change dom_mig_total population_2020
-   &lt;chr&gt;           &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;
- 1 Alabama        0.0279        119132         5025369
- 2 Arizona        0.0317        252654         7158110
- 3 Arkansas       0.0180         68640         3011553
- 4 California     0.0401      -1465116        39555674
- 5 Colorado       0.0127         31172         5775324
- 6 Delaware       0.0209         46357          989955
- 7 Florida        0.0487        872722        21538192
- 8 Georgia        0.0147        205811        10713755
- 9 Hawaii         0.0321        -50754         1455172
-10 Idaho          0.0306        120350         1839140
+   state_name     gop_change dom_mig_per population_2020
+   &lt;chr&gt;               &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+ 1 Idaho              0.0306      0.0654         1839140
+ 2 South Carolina     0.0312      0.0615         5118252
+ 3 Montana            0.0167      0.0493         1084216
+ 4 Delaware           0.0209      0.0468          989955
+ 5 Florida            0.0487      0.0405        21538192
+ 6 North Carolina     0.0110      0.0375        10441499
+ 7 Tennessee          0.0353      0.0365         6912347
+ 8 Maine              0.0124      0.0360         1363196
+ 9 Arizona            0.0317      0.0353         7158110
+10 Nevada             0.0293      0.0262         3105595
 # ℹ 38 more rows</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span><span class='co'>#head(percent_gop)</span></span>
