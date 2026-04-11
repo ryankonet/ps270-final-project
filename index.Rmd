@@ -57,28 +57,25 @@ percent_gop_50_states <- percent_gop_50_states |> mutate(dom_mig_per = dom_mig_t
   arrange(desc(dom_mig_per)) 
 
 
-print(percent_gop_50_states)
+#print(percent_gop_50_states)
 #head(percent_gop)
 #head(pop_2024)
 ```
-
+# Analysis of Main Relationship
 ```{r, echo=FALSE}
 plot_basic <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=(per_gop_change * 100))) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, linewidth = 2.0) + 
   geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") + 
   labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election", 
-       x = "Net Proportional Domestic Migration per County, 2020-2024 (percent of 2020 population)", 
-       y = "Change in GOP Voteshare per County, 2020-2024 (percent)", 
+       x = "Net Proportional Domestic Migration per County, 2020-2024 (percentage of 2020 population)", 
+       y = "Change in GOP Voteshare per County, 2020-2024 (percentage points)", 
        caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
-  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 8))
+  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 7))
 plot_basic
-text <- cat(
-  "\nThis first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95%.\n"
-)
-text
 ```
 
+This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.
 
 ```{r, echo=FALSE}
 plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295) * 100))) + 
@@ -86,13 +83,14 @@ plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 10
   geom_smooth(method = "lm", se = FALSE, linewidth = 2.0) + 
   geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") + 
   labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election", 
-       x = "Net Proportional Domestic Migration per County, 2020-2024 (percent of 2020 population)", 
-       y = "Change in GOP Voteshare per County adjusted for national change, 2020-2024 (percent)", 
+       x = "Net Proportional Domestic Migration per County, 2020-2024 (percentage of 2020 population)", 
+       y = "Change in GOP Voteshare per County adjusted for national change, 2020-2024 (percentage points)", 
        caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
-  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 7))
+  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 6))
 
   plot_basic_adjusted
 ```
+This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share's change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn't misrepresent the changes in each county. There is still another issue: not all these counties have the same population.
 
 ```{r,echo=FALSE}
 plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295)*100))) + 
@@ -100,15 +98,16 @@ plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mi
   geom_smooth(aes(weight = population_2020), method = "lm", se = FALSE, linewidth = 2.0) + 
   geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") +
   labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election weighted by 2020 Population", 
-       x = "Net Proportional Domestic Migration per County, 2020-2024 (percent of 2020 population)", 
-       y = "Change in GOP Voteshare per County adjusted for National Change, 2020-2024 (percent)", 
+       x = "Net Proportional Domestic Migration per County, 2020-2024 (percentage of 2020 population)", 
+       y = "Change in GOP Voteshare per County adjusted for National Change, 2020-2024 (percentage points)", 
        caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics")  + 
-  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 7), plot.title = element_text(size = 11))
+  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 6), plot.title = element_text(size = 11))
   
 plot_basic_adjusted_no_points
 ```
+This third graph does the same thing as the second, except the line of best fit is calculated by weighting each data point (county) by its population. This means counties with a greater population will be considered as more consequential than one with a smaller population. Basically, if one county is 10,000 and the other 100,000, then the latter is weighted more. This graph shows that the magnitude of the negative relationship is actually greater when adjusted for population (more negative slope for the line of best fit), meaning this trend is possibly more common among more urban counties. 
 
-
+# Urban vs. Rural (work in progress)
 ```{r, echo=FALSE}
 plot_50k <- focused_per_gop |> filter(population_2020 > 50000) |>
   ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
