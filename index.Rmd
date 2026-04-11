@@ -12,7 +12,7 @@ output:
 ## Project Description
 It is a common political complaint among conservative Americans that when people move in from out of state they "take their politics with them." The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale "survivorship bias"? In this study, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections. In order to get a holistic view, the data will be organized by state, population, et cetera.This project will seek to answer, or at a minimum strive towards answering, whether the large flow of domestic migration has a major effect on electoral behaviors.  
 
-```{r}
+```{r,echo=FALSE}
 library(tidyverse)
 pres_2020 <- read_csv("pres_data/2020_US_County_Level_Presidential_Results.csv")
 pres_2020 <- pres_2020 |> filter(state_name != "Alaska", state_name != "Connecticut", 
@@ -32,7 +32,7 @@ pop_2024 <- pop_2024 |> mutate(county_fips = paste0(STATE, COUNTY)) |>
   mutate(dom_mig_total = (DOMESTICMIG2020 + DOMESTICMIG2021 + DOMESTICMIG2022 + DOMESTICMIG2023 + DOMESTICMIG2024)) |> 
   mutate (dom_mig_per = dom_mig_total / ESTIMATESBASE2020) |> mutate(population_2020 = ESTIMATESBASE2020)
 ```
-```{r}
+```{r, echo=FALSE}
 pop_2024_important <- pop_2024 |> select(county_fips, dom_mig_total, dom_mig_per, population_2020)
 
 pop_2024_50_states <- pop_2024 |> filter(STNAME == CTYNAME) |> 
@@ -62,26 +62,56 @@ print(percent_gop_50_states)
 #head(pop_2024)
 ```
 
-```{r}
-plot_basic <- ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
+```{r, echo=FALSE}
+plot_basic <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=(per_gop_change * 100))) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, linewidth = 2.0) + 
+  geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") + 
   labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election", 
-       x = "Net Proportional Domestic Migration per County, 2020-2024", 
-       y = "Change in GOP Voteshare per County, 2020-2024", 
-       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics")
+       x = "Net Proportional Domestic Migration per County, 2020-2024 (percent of 2020 population)", 
+       y = "Change in GOP Voteshare per County, 2020-2024 (percent)", 
+       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
+  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 8))
 plot_basic
+```
+This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95%.
+```{r, echo=FALSE}
+plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295) * 100))) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, linewidth = 2.0) + 
+  geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") + 
+  labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election", 
+       x = "Net Proportional Domestic Migration per County, 2020-2024 (percent of 2020 population)", 
+       y = "Change in GOP Voteshare per County adjusted for national change, 2020-2024 (percent)", 
+       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
+  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 7))
+
+  plot_basic_adjusted
+```
+
+```{r,echo=FALSE}
+plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295)*100))) + 
+  geom_point() + 
+  geom_smooth(aes(weight = population_2020), method = "lm", se = FALSE, linewidth = 2.0) + 
+  geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") +
+  labs(title = "The Effect of Domestic Migration on the 2024 Presidential Election weighted by 2020 Population", 
+       x = "Net Proportional Domestic Migration per County, 2020-2024 (percent of 2020 population)", 
+       y = "Change in GOP Voteshare per County adjusted for National Change, 2020-2024 (percent)", 
+       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics")  + 
+  theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 7), plot.title = element_text(size = 11))
+  
+plot_basic_adjusted_no_points
 ```
 
 
-```{r}
+```{r, echo=FALSE}
 plot_50k <- focused_per_gop |> filter(population_2020 > 50000) |>
   ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE)
 plot_50k
 ```
-```{r}
+```{r, echo=FALSE}
 plot_10k_50k <- focused_per_gop |> filter(population_2020 >= 10000 & population_2020 <= 50000) |>
   ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
   geom_point() + 
@@ -89,7 +119,7 @@ plot_10k_50k <- focused_per_gop |> filter(population_2020 >= 10000 & population_
 plot_10k_50k
 ```
 
-```{r}
+```{r,echo=FALSE}
 plot_10k <- focused_per_gop |> filter(population_2020 < 10000) |>
   ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
   geom_point() + 
