@@ -73,8 +73,13 @@ plot_basic <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=(pe
        caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
   theme(axis.title.x = element_text(size = 8), axis.title.y = element_text(size = 8))
 plot_basic
+text <- cat(
+  "\nThis first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95%.\n"
+)
+text
 ```
-This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95%.
+
+
 ```{r, echo=FALSE}
 plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295) * 100))) + 
   geom_point() + 
