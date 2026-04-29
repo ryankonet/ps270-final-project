@@ -60,7 +60,17 @@ percent_gop_50_states <- percent_gop_50_states |> mutate(dom_mig_per = dom_mig_t
 #print(percent_gop_50_states)
 #head(percent_gop)
 #head(pop_2024)
+
+#focused_per_gop
 ```
+| Name           | Description                                               |
+|:---------------|:----------------------------------------------------------|
+| `county_fips`       | county identification number                                     |
+| `state_name`   | participant assigned to CBT therapy (1) or not (0)      |
+| `per_gop_change` | participant assigned to cash grant (1) or not (0)     |
+| `dom_mig_per`   | did the participant attend 80% of CBT sessions (1) or not (0) |
+| `population_2020` | age of participant at the time of the study |
+
 # Analysis of Main Relationship
 ```{r, echo=FALSE}
 plot_basic <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=(per_gop_change * 100))) + 
