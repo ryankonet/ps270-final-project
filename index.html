@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-7-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","pop_data/co-est2024-alldata.csv","pres_data/2020_US_County_Level_Presidential_Results.csv","pres_data/2024_US_County_Level_Presidential_Results.csv"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-7-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/figure-html5/unnamed-chunk-9-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","pop_data/co-est2024-alldata.csv","pres_data/2020_US_County_Level_Presidential_Results.csv","pres_data/2024_US_County_Level_Presidential_Results.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1544,14 +1544,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </div>
 
 <div class="d-article">
-<h2 id="project-description">Project Description</h2>
-<p>It is a common political complaint among conservative Americans that when people move in from out of state they “take their politics with them.” The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale “survivorship bias”? In this study, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections. In order to get a holistic view, the data will be organized by state, population, et cetera.This project will seek to answer, or at a minimum strive towards answering, whether the large flow of domestic migration has a major effect on electoral behaviors.</p>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
-<div class="layout-chunk" data-layout="l-body">
-
-</div>
+<h2 id="introduction">Introduction</h2>
+<p>It is a common political complaint among Americans in more conservative areas that when people move in from out of state they “take their politics with them.” The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale “survivor-ship bias”? In this research, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections and see if the proportionate net migration between those two elections had any effect on voting patterns. This project will seek to answer whether the flow of domestic migration into an area has a major effect on electoral behavior or, at minimum, if they coincide. Put more concisely, as the net domestic migration rate becomes proportionally greater in any given county, the share of votes going toward the GOP decreases on average. This research question and hypothesis is important to investigate because, if true, it allows political scientists and campaigns to better predict the changes a region could see to its partisan politics between election cycles so that they can adapt their studies accordingly.</p>
+<h2 id="data-section">Data Section</h2>
 <table>
 <colgroup>
 <col style="width: 21%" />
@@ -1565,50 +1560,101 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </thead>
 <tbody>
 <tr class="odd">
+<td style="text-align: left;"><code>state_name</code></td>
+<td style="text-align: left;">name of the state the county belongs to</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>county_fips</code></td>
 <td style="text-align: left;">county identification number</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;"><code>county_name</code></td>
+<td style="text-align: left;">name of the county</td>
+</tr>
 <tr class="even">
-<td style="text-align: left;"><code>state_name</code></td>
-<td style="text-align: left;">participant assigned to CBT therapy (1) or not (0)</td>
+<td style="text-align: left;"><code>per_gop_2020</code></td>
+<td style="text-align: left;">The proportion of votes cast for a GOP president in the 2020 Election</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><code>per_gop_2024</code></td>
+<td style="text-align: left;">The proportion of votes cast for a GOP president in the 2024 Election</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>per_gop_change</code></td>
-<td style="text-align: left;">participant assigned to cash grant (1) or not (0)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><code>dom_mig_per</code></td>
-<td style="text-align: left;">did the participant attend 80% of CBT sessions (1) or not (0)</td>
+<td style="text-align: left;">The change in the percent of GOP votes from 2020 to 2024</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;"><code>per_gop_change_adjusted</code></td>
+<td style="text-align: left;">per_gop_change adjusted for national difference in election results</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>dom_mig_total</code></td>
+<td style="text-align: left;">The net domestic migration from 2020 to 2024</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>dom_mig_per</code></td>
+<td style="text-align: left;">The proportion of net domestic migration by 2020 population</td>
+</tr>
+<tr class="even">
 <td style="text-align: left;"><code>population_2020</code></td>
-<td style="text-align: left;">age of participant at the time of the study</td>
+<td style="text-align: left;">population in 2020</td>
 </tr>
 </tbody>
 </table>
-<h1 id="analysis-of-main-relationship">Analysis of Main Relationship</h1>
+<p>The data used in this experiment is a combination of three sets: 2020 Presidential Election Results by County, 2024 Presidential Election Results by County, and 2024 Census Population Estimates. The 2020 Presidential Election Results were</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" alt="" width="624" /></p>
+
 </div>
-<p>This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.</p>
+<div class="layout-chunk" data-layout="l-body">
+
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_dep_var</span> <span class='op'>&lt;-</span> <span class='va'>focused_per_gop</span> <span class='op'>|&gt;</span> <span class='fu'>ggplot</span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='op'>(</span><span class='va'>per_gop_change</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Change in GOP Vote Share by County from 2020 to 2024"</span>, </span>
+<span>       x <span class='op'>=</span> <span class='st'>"Change in GOP Voteshare per County, 2020-2024 (percentage points)"</span>, </span>
+<span>       y <span class='op'>=</span> <span class='st'>"Number of Counties"</span>, </span>
+<span>       caption <span class='op'>=</span> <span class='st'>"Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'>theme</span><span class='op'>(</span>axis.title.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>plot_dep_var</span></span></code></pre>
+</div>
+<img src="index_files/figure-html5/unnamed-chunk-3-1.png" alt="" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_dep_var_change</span> <span class='op'>&lt;-</span> <span class='va'>focused_per_gop</span> <span class='op'>|&gt;</span> <span class='fu'>ggplot</span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='op'>(</span><span class='va'>per_gop_change</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Change in GOP Vote Share by County from 2020 to 2024"</span>, </span>
+<span>       x <span class='op'>=</span> <span class='st'>"Change in GOP Voteshare per County (adjusted), 2020-2024 (percentage points)"</span>, </span>
+<span>       y <span class='op'>=</span> <span class='st'>"Number of Counties"</span>, </span>
+<span>       caption <span class='op'>=</span> <span class='st'>"Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics"</span><span class='op'>)</span> <span class='op'>+</span> </span>
+<span>  <span class='fu'>theme</span><span class='op'>(</span>axis.title.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span><span class='va'>plot_dep_var_change</span></span></code></pre>
+</div>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-2.png" alt="" width="624" /></p>
+</div>
+<h1 id="analysis-of-main-relationship">Analysis of Main Relationship</h1>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" alt="" width="624" /></p>
 </div>
-<p>This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share’s change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn’t misrepresent the changes in each county. There is still another issue: not all these counties have the same population.</p>
+<p>This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.</p>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" alt="" width="624" /></p>
+</div>
+<p>This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share’s change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn’t misrepresent the changes in each county. There is still another issue: not all these counties have the same population.</p>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="624" /></p>
 </div>
 <p>This third graph does the same thing as the second, except the line of best fit is calculated by weighting each data point (county) by its population. This means counties with a greater population will be considered as more consequential than one with a smaller population. Basically, if one county is 10,000 and the other 100,000, then the latter is weighted more. This graph shows that the magnitude of the negative relationship is actually greater when adjusted for population (more negative slope for the line of best fit), meaning this trend is possibly more common among more urban counties.</p>
 <p>These three graphs each move closer to the conclusion that counties with meaningful negative net domestic migration tend to increase their percentage of GOP votes and counties with meaningful positive net domestic migration tend to decrease their percentage of GOP votes. These two phenomenon become more likely and greater in magnitude when the magnitude of the net domestic migration is greater.</p>
 <h1 id="urban-vs.-rural-work-in-progress">Urban vs. Rural (work in progress)</h1>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="624" /></p>
-</div>
-<div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-7-1.png" alt="" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" alt="" width="624" /></p>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="index_files/figure-html5/unnamed-chunk-9-1.png" alt="" width="624" /></p>
 </div>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

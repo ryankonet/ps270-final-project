@@ -9,8 +9,24 @@ output:
 
 
 
-## Project Description
-It is a common political complaint among conservative Americans that when people move in from out of state they "take their politics with them." The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale "survivorship bias"? In this study, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections. In order to get a holistic view, the data will be organized by state, population, et cetera.This project will seek to answer, or at a minimum strive towards answering, whether the large flow of domestic migration has a major effect on electoral behaviors.  
+## Introduction
+It is a common political complaint among Americans in more conservative areas that when people move in from out of state they "take their politics with them." The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale "survivor-ship bias"? In this research, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections and see if the proportionate net migration between those two elections had any effect on voting patterns. This project will seek to answer whether the flow of domestic migration into an area has a major effect on electoral behavior or, at minimum, if they coincide. Put more concisely, as the net domestic migration rate becomes proportionally greater in any given county, the share of votes going toward the GOP decreases on average. This research question and hypothesis is important to investigate because, if true, it allows political scientists and campaigns to better predict the changes a region could see to its partisan politics between election cycles so that they can adapt their studies accordingly. 
+
+## Data Section
+| Name           | Description                                               |
+|:---------------|:----------------------------------------------------------|
+| `state_name`   | name of the state the county belongs to      |
+| `county_fips`       | county identification number                         |
+| `county_name`   | name of the county       |
+| `per_gop_2020` | The proportion of votes cast for a GOP president in the 2020 Election    |
+| `per_gop_2024` |  The proportion of votes cast for a GOP president in the 2024 Election     |
+| `per_gop_change` |  The change in the percent of GOP votes from 2020 to 2024   |
+| `per_gop_change_adjusted` |  per_gop_change adjusted for national difference in election results   |
+| `dom_mig_total`   | The net domestic migration from 2020 to 2024 |
+| `dom_mig_per`   | The proportion of net domestic migration by 2020 population |
+| `population_2020` | population in 2020 |
+
+The data used in this experiment is a combination of three sets: 2020 Presidential Election Results by County, 2024 Presidential Election Results by County, and 2024 Census Population Estimates. The 2020 Presidential Election Results were
 
 ```{r,echo=FALSE}
 library(tidyverse)
@@ -41,8 +57,9 @@ pop_2024_50_states <- pop_2024 |> filter(STNAME == CTYNAME) |>
 
 percent_gop <- left_join(pres_2020, pres_2024) |> mutate(per_gop_change = per_gop_2024 - per_gop_2020)
 percent_gop <- left_join(percent_gop, pop_2024_important, by = "county_fips")
+percent_gop <- percent_gop |> mutate(per_gop_change_adjusted = per_gop_change - 0.0295)
 
-focused_per_gop <- percent_gop |> select(county_fips, state_name, per_gop_change, dom_mig_per, population_2020)
+focused_per_gop <- percent_gop |> select(state_name, county_fips, county_name, per_gop_2020, per_gop_2024, per_gop_change, per_gop_change_adjusted, dom_mig_total, dom_mig_per, population_2020)
 
 percent_gop_50_states <- percent_gop |> group_by(state_name) |> 
   summarize(dom_mig_total = sum(dom_mig_total), population_2020 = sum(population_2020), gop_2020 = sum(votes_gop_2020),
@@ -62,14 +79,29 @@ percent_gop_50_states <- percent_gop_50_states |> mutate(dom_mig_per = dom_mig_t
 #head(pop_2024)
 
 #focused_per_gop
+
 ```
-| Name           | Description                                               |
-|:---------------|:----------------------------------------------------------|
-| `county_fips`       | county identification number                                     |
-| `state_name`   | participant assigned to CBT therapy (1) or not (0)      |
-| `per_gop_change` | participant assigned to cash grant (1) or not (0)     |
-| `dom_mig_per`   | did the participant attend 80% of CBT sessions (1) or not (0) |
-| `population_2020` | age of participant at the time of the study |
+
+```{r}
+plot_dep_var <- focused_per_gop |> ggplot(mapping = aes(x = (per_gop_change * 100))) + 
+  geom_histogram(binwidth = 0.5) + 
+  labs(title = "Change in GOP Vote Share by County from 2020 to 2024", 
+       x = "Change in GOP Voteshare per County, 2020-2024 (percentage points)", 
+       y = "Number of Counties", 
+       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
+  theme(axis.title.x = element_text(size = 8))
+plot_dep_var
+
+plot_dep_var_change <- focused_per_gop |> ggplot(mapping = aes(x = (per_gop_change * 100))) + 
+  geom_histogram(binwidth = 0.5) + 
+  labs(title = "Change in GOP Vote Share by County from 2020 to 2024", 
+       x = "Change in GOP Voteshare per County (adjusted), 2020-2024 (percentage points)", 
+       y = "Number of Counties", 
+       caption = "Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics") + 
+  theme(axis.title.x = element_text(size = 8))
+plot_dep_var_change
+```
+
 
 # Analysis of Main Relationship
 ```{r, echo=FALSE}
@@ -88,7 +120,7 @@ plot_basic
 This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.
 
 ```{r, echo=FALSE}
-plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295) * 100))) + 
+plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change_adjusted) * 100))) + 
   geom_point() + 
   geom_smooth(method = "lm", se = FALSE, linewidth = 2.0) + 
   geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") + 
@@ -103,7 +135,7 @@ plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 10
 This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share's change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn't misrepresent the changes in each county. There is still another issue: not all these counties have the same population.
 
 ```{r,echo=FALSE}
-plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change - 0.0295)*100))) + 
+plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change_adjusted)*100))) + 
   geom_point() + 
   geom_smooth(aes(weight = population_2020), method = "lm", se = FALSE, linewidth = 2.0) + 
   geom_abline(intercept = 0.00, slope = 0, color = "grey", linetype = "dashed") +
