@@ -1547,6 +1547,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <h2 id="introduction">Introduction</h2>
 <p>It is a common political complaint among Americans in more conservative areas that when people move in from out of state they “take their politics with them.” The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale “survivor-ship bias”? In this research, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections and see if the proportionate net migration between those two elections had any effect on voting patterns. This project will seek to answer whether the flow of domestic migration into an area has a major effect on electoral behavior or, at minimum, if they coincide. Put more concisely, as the net domestic migration rate becomes proportionally greater in any given county, the share of votes going toward the GOP decreases on average. This research question and hypothesis is important to investigate because, if true, it allows political scientists and campaigns to better predict the changes a region could see to its partisan politics between election cycles so that they can adapt their studies accordingly.</p>
 <h2 id="data-section">Data Section</h2>
+<p>The data used in this experiment is a combination of three sets: 2020 Presidential Election Results by County, 2024 Presidential Election Results by County, and Annual Resident Population Estimates, Estimated Components of Resident Population Change, and Rates of the Components of Resident Population Change for States and Counties: April 1, 2020 to July 1, 2024 (CO-EST2024-ALLDATA). The 2020 Presidential Election Results were taken from a github user (<a href="https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2020_US_County_Level_Presidential_Results.csv" class="uri">https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2020_US_County_Level_Presidential_Results.csv</a>). The same can be said for the 2024 Presidential Election Results (<a href="https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2024_US_County_Level_Presidential_Results.csv" class="uri">https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2024_US_County_Level_Presidential_Results.csv</a>).The 2020 to 2024 Population Changes were taken from the United States Census Bureau. (from “Datasets” at the bottom of <a href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html" class="uri">https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html</a>).</p>
+<p>These datasets were all merged into one dataset called <code>focused_per_gop</code>. Below are the variables that were taken or created out of these datasets. There were issues with identification numbers in Connecticut, Alaska, and Washington DC, so they are excluded from this research.</p>
 <table>
 <colgroup>
 <col style="width: 21%" />
@@ -1601,9 +1603,24 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tr>
 </tbody>
 </table>
-<p>The data used in this experiment is a combination of three sets: 2020 Presidential Election Results by County, 2024 Presidential Election Results by County, and 2024 Census Population Estimates. The 2020 Presidential Election Results were</p>
+<p>The key variables that are used in the relationship are <code>dom_mig_per</code> and <code>per_gop_change</code>/<code>per_gop_change_adjusted</code>. The independent variable being the former and dependent the two latter. The <code>dom_mig_per</code> adds the net domestic migration from 2020 to 2024 together and then divides by the <code>population_2020</code> variable for each county. The two dependent variables are the exact same except <code>per_gop_change_adjusted</code> has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables.</p>
 <div class="layout-chunk" data-layout="l-body">
-
+<pre><code># A tibble: 3,103 × 10
+   state_name county_fips county_name  votes_gop votes_dem total_votes
+   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Alabama    01001       Autauga Cou…     20484      7439       28190
+ 2 Alabama    01003       Baldwin Cou…     95798     24934      121808
+ 3 Alabama    01005       Barbour Cou…      5606      4158        9832
+ 4 Alabama    01007       Bibb County       7572      1619        9241
+ 5 Alabama    01009       Blount Coun…     25354      2576       28115
+ 6 Alabama    01011       Bullock Cou…      1101      2983        4106
+ 7 Alabama    01013       Butler Coun…      5172      3251        8467
+ 8 Alabama    01015       Calhoun Cou…     34912     13194       48530
+ 9 Alabama    01017       Chambers Co…      8711      5405       14221
+10 Alabama    01019       Cherokee Co…     11358      1553       12984
+# ℹ 3,093 more rows
+# ℹ 4 more variables: diff &lt;dbl&gt;, per_gop &lt;dbl&gt;, per_dem &lt;dbl&gt;,
+#   per_point_diff &lt;dbl&gt;</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
@@ -1656,7 +1673,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-9-1.png" alt="" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
