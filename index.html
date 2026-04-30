@@ -116,7 +116,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-7-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/figure-html5/unnamed-chunk-9-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","pop_data/co-est2024-alldata.csv","pres_data/2020_US_County_Level_Presidential_Results.csv","pres_data/2024_US_County_Level_Presidential_Results.csv"]}
+  {"type":"character","attributes":{},"value":["index_files/anchor-4.2.2/anchor.min.js","index_files/bowser-1.9.3/bowser.min.js","index_files/distill-2.2.21/template.v2.js","index_files/figure-html5/unnamed-chunk-10-1.png","index_files/figure-html5/unnamed-chunk-3-1.png","index_files/figure-html5/unnamed-chunk-3-2.png","index_files/figure-html5/unnamed-chunk-4-1.png","index_files/figure-html5/unnamed-chunk-5-1.png","index_files/figure-html5/unnamed-chunk-6-1.png","index_files/figure-html5/unnamed-chunk-7-1.png","index_files/figure-html5/unnamed-chunk-8-1.png","index_files/figure-html5/unnamed-chunk-9-1.png","index_files/header-attrs-2.17/header-attrs.js","index_files/header-attrs-2.30/header-attrs.js","index_files/jquery-3.6.0/jquery-3.6.0.js","index_files/jquery-3.6.0/jquery-3.6.0.min.js","index_files/jquery-3.6.0/jquery-3.6.0.min.map","index_files/popper-2.6.0/popper.min.js","index_files/tippy-6.2.7/tippy-bundle.umd.min.js","index_files/tippy-6.2.7/tippy-light-border.css","index_files/tippy-6.2.7/tippy.css","index_files/tippy-6.2.7/tippy.umd.min.js","index_files/webcomponents-2.0.0/webcomponents.js","pop_data/co-est2024-alldata.csv","pres_data/2020_US_County_Level_Presidential_Results.csv","pres_data/2024_US_County_Level_Presidential_Results.csv"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
   <!--/radix_placeholder_navigation_in_header-->
@@ -1546,7 +1546,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <div class="d-article">
 <h2 id="introduction">Introduction</h2>
 <p>It is a common political complaint among Americans in more conservative areas that when people move in from out of state they “take their politics with them.” The three states with the largest exodus of population are solidly blue states with large blue metropolitan areas: California, Illinois, and New York. But is this trope actually true or is it borne out of some sort of large scale “survivor-ship bias”? In this research, each county in 48 states (excluding the District of Columbia, Alaska, and Connecticut for statistical reasons) will be used to compare their changes in voting patterns from the 2020 and 2024 Presidential Elections and see if the proportionate net migration between those two elections had any effect on voting patterns. This project will seek to answer whether the flow of domestic migration into an area has a major effect on electoral behavior or, at minimum, if they coincide. Put more concisely, as the net domestic migration rate becomes proportionally greater in any given county, the share of votes going toward the GOP decreases on average. This research question and hypothesis is important to investigate because, if true, it allows political scientists and campaigns to better predict the changes a region could see to its partisan politics between election cycles so that they can adapt their studies accordingly.</p>
-<h2 id="data-section">Data Section</h2>
+<h2 id="data-section-sources-and-variables">Data Section, Sources and Variables</h2>
 <p>The data used in this experiment is a combination of three sets: 2020 Presidential Election Results by County, 2024 Presidential Election Results by County, and Annual Resident Population Estimates, Estimated Components of Resident Population Change, and Rates of the Components of Resident Population Change for States and Counties: April 1, 2020 to July 1, 2024 (CO-EST2024-ALLDATA). The 2020 Presidential Election Results were taken from a github user (<a href="https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2020_US_County_Level_Presidential_Results.csv" class="uri">https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2020_US_County_Level_Presidential_Results.csv</a>). The same can be said for the 2024 Presidential Election Results (<a href="https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2024_US_County_Level_Presidential_Results.csv" class="uri">https://github.com/tonmcg/US_County_Level_Election_Results_08-24/blob/master/2024_US_County_Level_Presidential_Results.csv</a>).The 2020 to 2024 Population Changes were taken from the United States Census Bureau. (from “Datasets” at the bottom of <a href="https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html" class="uri">https://www.census.gov/data/tables/time-series/demo/popest/2020s-counties-total.html</a>).</p>
 <p>These datasets were all merged into one dataset called <code>focused_per_gop</code>. Below are the variables that were taken or created out of these datasets. There were issues with identification numbers in Connecticut, Alaska, and Washington DC, so they are excluded from this research.</p>
 <table>
@@ -1603,77 +1603,406 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tr>
 </tbody>
 </table>
-<p>The key variables that are used in the relationship are <code>dom_mig_per</code> and <code>per_gop_change</code>/<code>per_gop_change_adjusted</code>. The independent variable being the former and dependent the two latter. The <code>dom_mig_per</code> adds the net domestic migration from 2020 to 2024 together and then divides by the <code>population_2020</code> variable for each county. The two dependent variables are the exact same except <code>per_gop_change_adjusted</code> has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables.</p>
+<h1 id="data-section-variables-and-their-relationships">Data Section, Variables and Their Relationships</h1>
+The key variables that are used in the relationship are “dom_mig_per” and both “per_gop_change” and “per_gop_change_adjusted.” The independent variable being the former and dependent the two latter. The “dom_mig_per” adds the net domestic migration from 2020 to 2024 together and then divides by the “population_2020” variable for each county. The two dependent variables are the exact same except “per_gop_change_adjusted” has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables.
+Below are two histograms that show the distribution of the outcome variable(s) (dependent) “per_gop_change” and “per_gop_change_adjusted,” respectively.The major difference between the two being that the distribution of the adjusted is, naturally, much more centered on a zero percent increase. Keep in mind that in both graphs there exists some natural skewing because in a regular count a county with 8,000 people is counted the same as a county with 1,000,000. These graphs are just meant to show that there exist changes within the years whether accounting for the adjustment or not.
+Below those two histograms is a table that lists the 48 states and sorts them by net domestic migration. States are used here because just using counties would be far too long and it can illustrate some patterns that will be revisited in the results section, although right away it appears the correlation is not bared out on state level by seeing 3 of the top 5 states by proportion of net domestic migration actually gaining GOP “voteshare” even when adjusted.
 <div class="layout-chunk" data-layout="l-body">
-<pre><code># A tibble: 3,103 × 10
-   state_name county_fips county_name  votes_gop votes_dem total_votes
-   &lt;chr&gt;      &lt;chr&gt;       &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
- 1 Alabama    01001       Autauga Cou…     20484      7439       28190
- 2 Alabama    01003       Baldwin Cou…     95798     24934      121808
- 3 Alabama    01005       Barbour Cou…      5606      4158        9832
- 4 Alabama    01007       Bibb County       7572      1619        9241
- 5 Alabama    01009       Blount Coun…     25354      2576       28115
- 6 Alabama    01011       Bullock Cou…      1101      2983        4106
- 7 Alabama    01013       Butler Coun…      5172      3251        8467
- 8 Alabama    01015       Calhoun Cou…     34912     13194       48530
- 9 Alabama    01017       Chambers Co…      8711      5405       14221
-10 Alabama    01019       Cherokee Co…     11358      1553       12984
-# ℹ 3,093 more rows
-# ℹ 4 more variables: diff &lt;dbl&gt;, per_gop &lt;dbl&gt;, per_dem &lt;dbl&gt;,
-#   per_point_diff &lt;dbl&gt;</code></pre>
+
 </div>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
 <div class="layout-chunk" data-layout="l-body">
-<div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_dep_var</span> <span class='op'>&lt;-</span> <span class='va'>focused_per_gop</span> <span class='op'>|&gt;</span> <span class='fu'>ggplot</span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='op'>(</span><span class='va'>per_gop_change</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Change in GOP Vote Share by County from 2020 to 2024"</span>, </span>
-<span>       x <span class='op'>=</span> <span class='st'>"Change in GOP Voteshare per County, 2020-2024 (percentage points)"</span>, </span>
-<span>       y <span class='op'>=</span> <span class='st'>"Number of Counties"</span>, </span>
-<span>       caption <span class='op'>=</span> <span class='st'>"Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics"</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'>theme</span><span class='op'>(</span>axis.title.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>plot_dep_var</span></span></code></pre>
+<p><img src="index_files/figure-html5/unnamed-chunk-3-1.png" alt="" width="624" /><img src="index_files/figure-html5/unnamed-chunk-3-2.png" alt="" width="624" /></p>
 </div>
-<img src="index_files/figure-html5/unnamed-chunk-3-1.png" alt="" width="624" />
+<div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>plot_dep_var_change</span> <span class='op'>&lt;-</span> <span class='va'>focused_per_gop</span> <span class='op'>|&gt;</span> <span class='fu'>ggplot</span><span class='op'>(</span>mapping <span class='op'>=</span> <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='op'>(</span><span class='va'>per_gop_change</span> <span class='op'>*</span> <span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'>geom_histogram</span><span class='op'>(</span>binwidth <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Change in GOP Vote Share by County from 2020 to 2024"</span>, </span>
-<span>       x <span class='op'>=</span> <span class='st'>"Change in GOP Voteshare per County (adjusted), 2020-2024 (percentage points)"</span>, </span>
-<span>       y <span class='op'>=</span> <span class='st'>"Number of Counties"</span>, </span>
-<span>       caption <span class='op'>=</span> <span class='st'>"Sources: 2024 PEP Census Data, 2020 and 2024 US House of Representatives Election Statistics"</span><span class='op'>)</span> <span class='op'>+</span> </span>
-<span>  <span class='fu'>theme</span><span class='op'>(</span>axis.title.x <span class='op'>=</span> <span class='fu'>element_text</span><span class='op'>(</span>size <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
-<span><span class='va'>plot_dep_var_change</span></span></code></pre>
+<pre class="sourceCode r"><code class="sourceCode r"><span> <span class='co'># Table for all 50 states</span></span>
+<span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>percent_gop_50_states</span>, col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"State"</span>, <span class='st'>"Net Domestic Migration Proportion"</span>, <span class='st'>"GOP Voteshare Change Adjusted"</span>, <span class='st'>"GOP Voteshare Change"</span>, <span class='st'>"2020 Population"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
 </div>
-<p><img src="index_files/figure-html5/unnamed-chunk-3-2.png" alt="" width="624" /></p>
+<table>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 29%" />
+<col style="width: 25%" />
+<col style="width: 18%" />
+<col style="width: 13%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">State</th>
+<th style="text-align: right;">Net Domestic Migration Proportion</th>
+<th style="text-align: right;">GOP Voteshare Change Adjusted</th>
+<th style="text-align: right;">GOP Voteshare Change</th>
+<th style="text-align: right;">2020 Population</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Idaho</td>
+<td style="text-align: right;">0.0654382</td>
+<td style="text-align: right;">0.0011115</td>
+<td style="text-align: right;">0.0306115</td>
+<td style="text-align: right;">1839140</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South Carolina</td>
+<td style="text-align: right;">0.0615353</td>
+<td style="text-align: right;">0.0016834</td>
+<td style="text-align: right;">0.0311834</td>
+<td style="text-align: right;">5118252</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Montana</td>
+<td style="text-align: right;">0.0493407</td>
+<td style="text-align: right;">-0.0128192</td>
+<td style="text-align: right;">0.0166808</td>
+<td style="text-align: right;">1084216</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Delaware</td>
+<td style="text-align: right;">0.0468274</td>
+<td style="text-align: right;">-0.0086117</td>
+<td style="text-align: right;">0.0208883</td>
+<td style="text-align: right;">989955</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Florida</td>
+<td style="text-align: right;">0.0405197</td>
+<td style="text-align: right;">0.0191958</td>
+<td style="text-align: right;">0.0486958</td>
+<td style="text-align: right;">21538192</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">North Carolina</td>
+<td style="text-align: right;">0.0375435</td>
+<td style="text-align: right;">-0.0185260</td>
+<td style="text-align: right;">0.0109740</td>
+<td style="text-align: right;">10441499</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Tennessee</td>
+<td style="text-align: right;">0.0364825</td>
+<td style="text-align: right;">0.0058364</td>
+<td style="text-align: right;">0.0353364</td>
+<td style="text-align: right;">6912347</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maine</td>
+<td style="text-align: right;">0.0360418</td>
+<td style="text-align: right;">-0.0171368</td>
+<td style="text-align: right;">0.0123632</td>
+<td style="text-align: right;">1363196</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Arizona</td>
+<td style="text-align: right;">0.0352962</td>
+<td style="text-align: right;">0.0022404</td>
+<td style="text-align: right;">0.0317404</td>
+<td style="text-align: right;">7158110</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nevada</td>
+<td style="text-align: right;">0.0262063</td>
+<td style="text-align: right;">-0.0002460</td>
+<td style="text-align: right;">0.0292540</td>
+<td style="text-align: right;">3105595</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Texas</td>
+<td style="text-align: right;">0.0256516</td>
+<td style="text-align: right;">0.0118776</td>
+<td style="text-align: right;">0.0413776</td>
+<td style="text-align: right;">29149458</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South Dakota</td>
+<td style="text-align: right;">0.0240998</td>
+<td style="text-align: right;">-0.0128571</td>
+<td style="text-align: right;">0.0166429</td>
+<td style="text-align: right;">886729</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Alabama</td>
+<td style="text-align: right;">0.0237061</td>
+<td style="text-align: right;">-0.0015881</td>
+<td style="text-align: right;">0.0279119</td>
+<td style="text-align: right;">5025369</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oklahoma</td>
+<td style="text-align: right;">0.0235434</td>
+<td style="text-align: right;">-0.0216117</td>
+<td style="text-align: right;">0.0078883</td>
+<td style="text-align: right;">3959405</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Arkansas</td>
+<td style="text-align: right;">0.0227922</td>
+<td style="text-align: right;">-0.0114886</td>
+<td style="text-align: right;">0.0180114</td>
+<td style="text-align: right;">3011553</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Hampshire</td>
+<td style="text-align: right;">0.0211753</td>
+<td style="text-align: right;">-0.0029015</td>
+<td style="text-align: right;">0.0265985</td>
+<td style="text-align: right;">1377546</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Georgia</td>
+<td style="text-align: right;">0.0192100</td>
+<td style="text-align: right;">-0.0148400</td>
+<td style="text-align: right;">0.0146600</td>
+<td style="text-align: right;">10713755</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Utah</td>
+<td style="text-align: right;">0.0158610</td>
+<td style="text-align: right;">-0.0168151</td>
+<td style="text-align: right;">0.0126849</td>
+<td style="text-align: right;">3271608</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Wyoming</td>
+<td style="text-align: right;">0.0126637</td>
+<td style="text-align: right;">-0.0056378</td>
+<td style="text-align: right;">0.0238622</td>
+<td style="text-align: right;">576844</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vermont</td>
+<td style="text-align: right;">0.0095789</td>
+<td style="text-align: right;">-0.0103681</td>
+<td style="text-align: right;">0.0191319</td>
+<td style="text-align: right;">643082</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Missouri</td>
+<td style="text-align: right;">0.0068619</td>
+<td style="text-align: right;">-0.0122519</td>
+<td style="text-align: right;">0.0172481</td>
+<td style="text-align: right;">6154854</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kentucky</td>
+<td style="text-align: right;">0.0063868</td>
+<td style="text-align: right;">-0.0052646</td>
+<td style="text-align: right;">0.0242354</td>
+<td style="text-align: right;">4506302</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West Virginia</td>
+<td style="text-align: right;">0.0057400</td>
+<td style="text-align: right;">-0.0159690</td>
+<td style="text-align: right;">0.0135310</td>
+<td style="text-align: right;">1793736</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Colorado</td>
+<td style="text-align: right;">0.0053974</td>
+<td style="text-align: right;">-0.0168012</td>
+<td style="text-align: right;">0.0126988</td>
+<td style="text-align: right;">5775324</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Indiana</td>
+<td style="text-align: right;">0.0044557</td>
+<td style="text-align: right;">-0.0133977</td>
+<td style="text-align: right;">0.0161023</td>
+<td style="text-align: right;">6786587</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wisconsin</td>
+<td style="text-align: right;">0.0005019</td>
+<td style="text-align: right;">-0.0207127</td>
+<td style="text-align: right;">0.0087873</td>
+<td style="text-align: right;">5894170</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oregon</td>
+<td style="text-align: right;">-0.0004413</td>
+<td style="text-align: right;">-0.0206406</td>
+<td style="text-align: right;">0.0088594</td>
+<td style="text-align: right;">4237224</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Washington</td>
+<td style="text-align: right;">-0.0028176</td>
+<td style="text-align: right;">-0.0245081</td>
+<td style="text-align: right;">0.0049919</td>
+<td style="text-align: right;">7707586</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Iowa</td>
+<td style="text-align: right;">-0.0029719</td>
+<td style="text-align: right;">-0.0008860</td>
+<td style="text-align: right;">0.0286140</td>
+<td style="text-align: right;">3190546</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ohio</td>
+<td style="text-align: right;">-0.0032220</td>
+<td style="text-align: right;">-0.0105900</td>
+<td style="text-align: right;">0.0189100</td>
+<td style="text-align: right;">11799453</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New Mexico</td>
+<td style="text-align: right;">-0.0037704</td>
+<td style="text-align: right;">-0.0059551</td>
+<td style="text-align: right;">0.0235449</td>
+<td style="text-align: right;">2117555</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Pennsylvania</td>
+<td style="text-align: right;">-0.0037708</td>
+<td style="text-align: right;">-0.0135925</td>
+<td style="text-align: right;">0.0159075</td>
+<td style="text-align: right;">13002909</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Virginia</td>
+<td style="text-align: right;">-0.0039967</td>
+<td style="text-align: right;">-0.0065326</td>
+<td style="text-align: right;">0.0229674</td>
+<td style="text-align: right;">8631388</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Michigan</td>
+<td style="text-align: right;">-0.0067251</td>
+<td style="text-align: right;">-0.0104541</td>
+<td style="text-align: right;">0.0190459</td>
+<td style="text-align: right;">10079338</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nebraska</td>
+<td style="text-align: right;">-0.0070122</td>
+<td style="text-align: right;">-0.0154176</td>
+<td style="text-align: right;">0.0140824</td>
+<td style="text-align: right;">1961996</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mississippi</td>
+<td style="text-align: right;">-0.0074809</td>
+<td style="text-align: right;">0.0040000</td>
+<td style="text-align: right;">0.0335000</td>
+<td style="text-align: right;">2961278</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rhode Island</td>
+<td style="text-align: right;">-0.0078653</td>
+<td style="text-align: right;">0.0033676</td>
+<td style="text-align: right;">0.0328676</td>
+<td style="text-align: right;">1097354</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kansas</td>
+<td style="text-align: right;">-0.0081433</td>
+<td style="text-align: right;">-0.0196726</td>
+<td style="text-align: right;">0.0098274</td>
+<td style="text-align: right;">2937745</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North Dakota</td>
+<td style="text-align: right;">-0.0082794</td>
+<td style="text-align: right;">-0.0053935</td>
+<td style="text-align: right;">0.0241065</td>
+<td style="text-align: right;">779046</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Minnesota</td>
+<td style="text-align: right;">-0.0083989</td>
+<td style="text-align: right;">-0.0136449</td>
+<td style="text-align: right;">0.0158551</td>
+<td style="text-align: right;">5706692</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Maryland</td>
+<td style="text-align: right;">-0.0194827</td>
+<td style="text-align: right;">-0.0076109</td>
+<td style="text-align: right;">0.0218891</td>
+<td style="text-align: right;">6181629</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Jersey</td>
+<td style="text-align: right;">-0.0206921</td>
+<td style="text-align: right;">0.0185307</td>
+<td style="text-align: right;">0.0480307</td>
+<td style="text-align: right;">9289014</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Massachusetts</td>
+<td style="text-align: right;">-0.0231406</td>
+<td style="text-align: right;">0.0114179</td>
+<td style="text-align: right;">0.0409179</td>
+<td style="text-align: right;">7033132</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Louisiana</td>
+<td style="text-align: right;">-0.0277998</td>
+<td style="text-align: right;">-0.0119563</td>
+<td style="text-align: right;">0.0175437</td>
+<td style="text-align: right;">4657874</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Illinois</td>
+<td style="text-align: right;">-0.0326051</td>
+<td style="text-align: right;">0.0032408</td>
+<td style="text-align: right;">0.0327408</td>
+<td style="text-align: right;">12821814</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hawaii</td>
+<td style="text-align: right;">-0.0348784</td>
+<td style="text-align: right;">0.0026142</td>
+<td style="text-align: right;">0.0321142</td>
+<td style="text-align: right;">1455172</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">California</td>
+<td style="text-align: right;">-0.0370393</td>
+<td style="text-align: right;">0.0106220</td>
+<td style="text-align: right;">0.0401220</td>
+<td style="text-align: right;">39555674</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New York</td>
+<td style="text-align: right;">-0.0478232</td>
+<td style="text-align: right;">0.0298297</td>
+<td style="text-align: right;">0.0593297</td>
+<td style="text-align: right;">20203772</td>
+</tr>
+</tbody>
+</table>
 </div>
 <h1 id="analysis-of-main-relationship">Analysis of Main Relationship</h1>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-4-1.png" alt="" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" alt="" width="624" /></p>
 </div>
 <p>This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-5-1.png" alt="" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="624" /></p>
 </div>
 <p>This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share’s change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn’t misrepresent the changes in each county. There is still another issue: not all these counties have the same population.</p>
 <div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-6-1.png" alt="" width="624" /></p>
+<p><img src="index_files/figure-html5/unnamed-chunk-7-1.png" alt="" width="624" /></p>
 </div>
 <p>This third graph does the same thing as the second, except the line of best fit is calculated by weighting each data point (county) by its population. This means counties with a greater population will be considered as more consequential than one with a smaller population. Basically, if one county is 10,000 and the other 100,000, then the latter is weighted more. This graph shows that the magnitude of the negative relationship is actually greater when adjusted for population (more negative slope for the line of best fit), meaning this trend is possibly more common among more urban counties.</p>
 <p>These three graphs each move closer to the conclusion that counties with meaningful negative net domestic migration tend to increase their percentage of GOP votes and counties with meaningful positive net domestic migration tend to decrease their percentage of GOP votes. These two phenomenon become more likely and greater in magnitude when the magnitude of the net domestic migration is greater.</p>
 <h1 id="urban-vs.-rural-work-in-progress">Urban vs. Rural (work in progress)</h1>
-<div class="layout-chunk" data-layout="l-body">
-<p><img src="index_files/figure-html5/unnamed-chunk-7-1.png" alt="" width="624" /></p>
-</div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-8-1.png" alt="" width="624" /></p>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <p><img src="index_files/figure-html5/unnamed-chunk-9-1.png" alt="" width="624" /></p>
 </div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="layout-chunk" data-layout="l-body">
+<p><img src="index_files/figure-html5/unnamed-chunk-10-1.png" alt="" width="624" /></p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
