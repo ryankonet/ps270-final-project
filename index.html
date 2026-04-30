@@ -1604,9 +1604,9 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </tbody>
 </table>
 <h2 id="data-section-variables-and-their-relationships">Data Section, Variables and Their Relationships</h2>
-<p>The key variables that are used in the relationship are <code>dom_mig_per</code> and both <code>per_gop_change</code> and <code>per_gop_change_adjusted</code> variables. The independent variable being the former and dependent the two latter. The <code>dom_mig_per</code> adds the net domestic migration from 2020 to 2024 together and then divides by the <code>population_2020</code> variable for each county. The two dependent variables are the exact same except <code>per_gop_change_adjusted</code> has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables.
-Below are two histograms that show the distribution of the outcome variable(s) (dependent) <code>per_gop_change</code> and <code>per_gop_change_adjusted</code> respectively.The major difference between the two being that the distribution of the adjusted is, naturally, much more centered on a zero percent increase. Keep in mind that in both graphs there exists some natural skewing because in a regular count a county with 8,000 people is counted the same as a county with 1,000,000. These graphs are just meant to show that there exist changes within the years whether accounting for the adjustment or not.
-Below those two histograms is a table that lists the 48 states and sorts them by net domestic migration. States are used here because just using counties would be far too long and it can illustrate some patterns that will be revisited in the results section, although right away it appears the correlation is not bared out on state level by seeing 3 of the top 5 states by proportion of net domestic migration actually gaining GOP “voteshare” even when adjusted.</p>
+<p>The key variables that are used in the relationship are <code>dom_mig_per</code> and both <code>per_gop_change</code> and <code>per_gop_change_adjusted</code> variables. The independent variable being the former and dependent the two latter. The <code>dom_mig_per</code> adds the net domestic migration from 2020 to 2024 together and then divides by the <code>population_2020</code> variable for each county. The two dependent variables are the exact same except <code>per_gop_change_adjusted</code> has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables.</p>
+<p>Below are two histograms that show the distribution of the outcome variable(s) (dependent) <code>per_gop_change</code> and <code>per_gop_change_adjusted</code> respectively.The major difference between the two being that the distribution of the adjusted is, naturally, much more centered on a zero percent increase. Keep in mind that in both graphs there exists some natural skewing because in a regular count a county with 8,000 people is counted the same as a county with 1,000,000. These graphs are just meant to show that there exist changes within the years whether accounting for the adjustment or not.</p>
+<p>Below those two histograms is a table that lists the 48 states and sorts them by net domestic migration. States are used here because just using counties would be far too long and it can illustrate some patterns that will be revisited in the results section going by county, although right away it appears the correlation is not bared out on state level by seeing 3 of the top 5 states by proportion of net domestic migration actually gaining GOP “voteshare” even when adjusted.</p>
 <div class="layout-chunk" data-layout="l-body">
 
 </div>
@@ -1988,6 +1988,113 @@ Below those two histograms is a table that lists the 48 states and sorts them by
 <p><img src="index_files/figure-html5/unnamed-chunk-7-1.png" alt="" width="624" /></p>
 </div>
 <p>These three graphs each move closer to the conclusion that counties with meaningful negative net domestic migration tend to increase their percentage of GOP votes and counties with meaningful positive net domestic migration tend to decrease their percentage of GOP votes. These two phenomenon become more likely and greater in magnitude when the magnitude of the net domestic migration is greater. But is this bared out in a regression model?</p>
+<h2 id="results-section-regression">Results Section, Regression</h2>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span><span class='va'>reg_gop</span> <span class='op'>&lt;-</span> <span class='va'>focused_per_gop</span> <span class='op'>|&gt;</span> </span>
+<span>  <span class='fu'>mutate</span><span class='op'>(</span>dom_mig_per <span class='op'>=</span> <span class='va'>dom_mig_per</span><span class='op'>*</span><span class='fl'>100</span>, per_gop_change <span class='op'>=</span> <span class='va'>per_gop_change</span> <span class='op'>*</span> <span class='fl'>100</span>, </span>
+<span>         per_gop_change_adjusted <span class='op'>=</span> <span class='va'>per_gop_change_adjusted</span> <span class='op'>*</span><span class='fl'>100</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>regression_1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>per_gop_change</span> <span class='op'>~</span> <span class='va'>dom_mig_per</span>, data <span class='op'>=</span> <span class='va'>reg_gop</span><span class='op'>)</span></span>
+<span><span class='va'>regression_2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>per_gop_change_adjusted</span> <span class='op'>~</span> <span class='va'>dom_mig_per</span>, data <span class='op'>=</span> <span class='va'>reg_gop</span><span class='op'>)</span></span>
+<span><span class='va'>regression_3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>per_gop_change_adjusted</span> <span class='op'>~</span> <span class='va'>dom_mig_per</span>, data <span class='op'>=</span> <span class='va'>reg_gop</span>, weights <span class='op'>=</span> <span class='va'>population_2020</span><span class='op'>)</span></span>
+<span></span>
+<span></span>
+<span><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://broom.tidymodels.org/'>broom</a></span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>tab1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>regression_1</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'>mutate</span><span class='op'>(</span>plot <span class='op'>=</span> <span class='fl'>1</span>, model <span class='op'>=</span> <span class='st'>"Unweighted (Unadjusted)"</span><span class='op'>)</span></span>
+<span><span class='va'>tab2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>regression_2</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'>mutate</span><span class='op'>(</span>plot <span class='op'>=</span> <span class='fl'>2</span>, model <span class='op'>=</span> <span class='st'>"Unweighted (Adjusted)"</span><span class='op'>)</span></span>
+<span><span class='va'>tab3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='va'>regression_3</span><span class='op'>)</span> <span class='op'>|&gt;</span> <span class='fu'>mutate</span><span class='op'>(</span>plot <span class='op'>=</span> <span class='fl'>3</span>, model <span class='op'>=</span> <span class='st'>"Weighted (Adjusted)"</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>regression_table</span> <span class='op'>&lt;-</span> <span class='fu'>bind_rows</span><span class='op'>(</span><span class='va'>tab1</span>, <span class='va'>tab2</span>, <span class='va'>tab3</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>regression_table</span> <span class='op'>&lt;-</span> <span class='va'>regression_table</span> <span class='op'>|&gt;</span> <span class='fu'>mutate</span><span class='op'>(</span>term <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/ifelse.html'>ifelse</a></span><span class='op'>(</span><span class='va'>term</span> <span class='op'>==</span> <span class='st'>"(Intercept)"</span>, <span class='st'>"0 Net Dom Migration"</span>, <span class='st'>"Coefficient"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='va'>regression_table</span> <span class='op'>&lt;-</span> <span class='va'>regression_table</span> <span class='op'>|&gt;</span> <span class='fu'>select</span><span class='op'>(</span><span class='va'>plot</span>, <span class='va'>model</span>, <span class='va'>term</span>, <span class='va'>estimate</span>, <span class='va'>std.error</span>, <span class='va'>statistic</span>, <span class='va'>p.value</span><span class='op'>)</span></span>
+<span></span>
+<span><span class='fu'>knitr</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='va'>regression_table</span>, col.names <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Plot"</span>, <span class='st'>"Weight and Adjust Status"</span>, <span class='st'>"Term"</span>, <span class='st'>"Estimate"</span>, <span class='st'>"Standard Error"</span>, <span class='st'>"Statistic"</span>, <span class='st'>"P-Value"</span><span class='op'>)</span><span class='op'>)</span></span></code></pre>
+</div>
+<table>
+<colgroup>
+<col style="width: 5%" />
+<col style="width: 26%" />
+<col style="width: 21%" />
+<col style="width: 11%" />
+<col style="width: 15%" />
+<col style="width: 11%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Plot</th>
+<th style="text-align: left;">Weight and Adjust Status</th>
+<th style="text-align: left;">Term</th>
+<th style="text-align: right;">Estimate</th>
+<th style="text-align: right;">Standard Error</th>
+<th style="text-align: right;">Statistic</th>
+<th style="text-align: right;">P-Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Unweighted (Unadjusted)</td>
+<td style="text-align: left;">0 Net Dom Migration</td>
+<td style="text-align: right;">2.0230110</td>
+<td style="text-align: right;">0.0304448</td>
+<td style="text-align: right;">66.448404</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Unweighted (Unadjusted)</td>
+<td style="text-align: left;">Coefficient</td>
+<td style="text-align: right;">-0.0547165</td>
+<td style="text-align: right;">0.0060397</td>
+<td style="text-align: right;">-9.059468</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Unweighted (Adjusted)</td>
+<td style="text-align: left;">0 Net Dom Migration</td>
+<td style="text-align: right;">-0.9269890</td>
+<td style="text-align: right;">0.0304448</td>
+<td style="text-align: right;">-30.448151</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Unweighted (Adjusted)</td>
+<td style="text-align: left;">Coefficient</td>
+<td style="text-align: right;">-0.0547165</td>
+<td style="text-align: right;">0.0060397</td>
+<td style="text-align: right;">-9.059468</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Weighted (Adjusted)</td>
+<td style="text-align: left;">0 Net Dom Migration</td>
+<td style="text-align: right;">-0.2126912</td>
+<td style="text-align: right;">0.0376285</td>
+<td style="text-align: right;">-5.652403</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Weighted (Adjusted)</td>
+<td style="text-align: left;">Coefficient</td>
+<td style="text-align: right;">-0.1494921</td>
+<td style="text-align: right;">0.0071483</td>
+<td style="text-align: right;">-20.913047</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The regression model has lots of information that can explain the relevance of the three plots. The Plot corresponds with the order the plots appeared. The Term tells whether this is the intercept, meaning when <code>dom_mig_per</code> is zero and there is 0 net domestic migration, or the coefficient, representing how many percentage points the GOP voteshare are expected to change for every increase of one percentage point by <code>dom_mig_per</code> in each plot. The Estimate represents the values for the corresponding term. The Standard Error is the estimated standard deviation of each term. The statistic is calculated by the Estimate divided by the Standard Error, and the higher the magnitude of the value the more statistically significant the relationship. The p-value calculates how probable the data distribution would be under a null hypothesis (a hypothesis with no correlation), it is scaled 0 to 1.</p>
+<p>The</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->

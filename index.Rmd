@@ -33,8 +33,10 @@ These datasets were all merged into one dataset called `focused_per_gop`. Below 
 
 ## Data Section, Variables and Their Relationships
 The key variables that are used in the relationship are `dom_mig_per` and both `per_gop_change` and `per_gop_change_adjusted` variables. The independent variable being the former and dependent the two latter. The `dom_mig_per` adds the net domestic migration from 2020 to 2024 together and then divides by the `population_2020` variable for each county. The two dependent variables are the exact same except `per_gop_change_adjusted` has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables. 
+
 Below are two histograms that show the distribution of the outcome variable(s) (dependent) `per_gop_change` and `per_gop_change_adjusted` respectively.The major difference between the two being that the distribution of the adjusted is, naturally, much more centered on a zero percent increase. Keep in mind that in both graphs there exists some natural skewing because in a regular count a county with 8,000 people is counted the same as a county with 1,000,000. These graphs are just meant to show that there exist changes within the years whether accounting for the adjustment or not.
-Below those two histograms is a table that lists the 48 states and sorts them by net domestic migration. States are used here because just using counties would be far too long and it can illustrate some patterns that will be revisited in the results section, although right away it appears the correlation is not bared out on state level by seeing 3 of the top 5 states by proportion of net domestic migration actually gaining GOP "voteshare" even when adjusted. 
+
+Below those two histograms is a table that lists the 48 states and sorts them by net domestic migration. States are used here because just using counties would be far too long and it can illustrate some patterns that will be revisited in the results section going by county, although right away it appears the correlation is not bared out on state level by seeing 3 of the top 5 states by proportion of net domestic migration actually gaining GOP "voteshare" even when adjusted. 
 
 ```{r,echo=FALSE}
 library(tidyverse)
@@ -160,3 +162,34 @@ plot_basic_adjusted_no_points
 ```
 
 These three graphs each move closer to the conclusion that counties with meaningful negative net domestic migration tend to increase their percentage of GOP votes and counties with meaningful positive net domestic migration tend to decrease their percentage of GOP votes. These two phenomenon become more likely and greater in magnitude when the magnitude of the net domestic migration is greater. But is this bared out in a regression model?
+
+## Results Section, Regression
+```{r}
+reg_gop <- focused_per_gop |> 
+  mutate(dom_mig_per = dom_mig_per*100, per_gop_change = per_gop_change * 100, 
+         per_gop_change_adjusted = per_gop_change_adjusted *100)
+
+regression_1 <- lm(per_gop_change ~ dom_mig_per, data = reg_gop)
+regression_2 <- lm(per_gop_change_adjusted ~ dom_mig_per, data = reg_gop)
+regression_3 <- lm(per_gop_change_adjusted ~ dom_mig_per, data = reg_gop, weights = population_2020)
+
+
+library(broom)
+
+tab1 <- tidy(regression_1) |> mutate(plot = 1, model = "Unweighted (Unadjusted)")
+tab2 <- tidy(regression_2) |> mutate(plot = 2, model = "Unweighted (Adjusted)")
+tab3 <- tidy(regression_3) |> mutate(plot = 3, model = "Weighted (Adjusted)")
+
+regression_table <- bind_rows(tab1, tab2, tab3)
+
+regression_table <- regression_table |> mutate(term = ifelse(term == "(Intercept)", "0 Net Dom Migration", "Coefficient"))
+
+regression_table <- regression_table |> select(plot, model, term, estimate, std.error, statistic, p.value)
+
+knitr::kable(regression_table, col.names = c("Plot", "Weight and Adjust Status", "Term", "Estimate", "Standard Error", "Statistic", "P-Value"))
+
+
+```
+The regression model has lots of information that can explain the relevance of the three plots. The Plot corresponds with the order the plots appeared. The Term tells whether this is the intercept, meaning when `dom_mig_per` is zero and there is 0 net domestic migration, or the coefficient, representing how many percentage points the GOP voteshare are expected to change for every increase of one percentage point by `dom_mig_per` in each plot. The Estimate represents the values for the corresponding term. The Standard Error is the estimated standard deviation of each term. The statistic is calculated by the Estimate divided by the Standard Error, and the higher the magnitude of the value the more statistically significant the relationship. The p-value calculates how probable the data distribution would be under a null hypothesis (a hypothesis with no correlation), it is scaled 0 to 1. 
+
+The 
