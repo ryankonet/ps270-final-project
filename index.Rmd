@@ -30,10 +30,12 @@ These datasets were all merged into one dataset called `focused_per_gop`. Below 
 | `dom_mig_per`   | The proportion of net domestic migration by 2020 population |
 | `population_2020` | population in 2020 |
 
-# Data Section, Variables and Their Relationships
-The key variables that are used in the relationship are "dom_mig_per" and both "per_gop_change" and "per_gop_change_adjusted." The independent variable being the former and dependent the two latter. The "dom_mig_per" adds the net domestic migration from 2020 to 2024 together and then divides by the "population_2020" variable for each county. The two dependent variables are the exact same except "per_gop_change_adjusted" has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables. 
-Below are two histograms that show the distribution of the outcome variable(s) (dependent) "per_gop_change" and "per_gop_change_adjusted," respectively.The major difference between the two being that the distribution of the adjusted is, naturally, much more centered on a zero percent increase. Keep in mind that in both graphs there exists some natural skewing because in a regular count a county with 8,000 people is counted the same as a county with 1,000,000. These graphs are just meant to show that there exist changes within the years whether accounting for the adjustment or not.
+
+## Data Section, Variables and Their Relationships
+The key variables that are used in the relationship are `dom_mig_per` and both `per_gop_change` and `per_gop_change_adjusted` variables. The independent variable being the former and dependent the two latter. The `dom_mig_per` adds the net domestic migration from 2020 to 2024 together and then divides by the `population_2020` variable for each county. The two dependent variables are the exact same except `per_gop_change_adjusted` has every datum subtracted by 0.0295, which is the difference between the national GOP vote shares in each election. The difference between Democrat vote shares is 0.0299, so the third party shift is negligible enough to ignore in the adjustment. The adjusted dependent variable will be the preferred method of outcome; however, the non-adjusted version will usually be presented alongside it. The relationship measures how the proportion of net domestic migration affects the proportion of change in GOP vote share in the majority of the voting counties. Success of this experiment will be measured by a statistically significant negative relationship between these two variables. 
+Below are two histograms that show the distribution of the outcome variable(s) (dependent) `per_gop_change` and `per_gop_change_adjusted` respectively.The major difference between the two being that the distribution of the adjusted is, naturally, much more centered on a zero percent increase. Keep in mind that in both graphs there exists some natural skewing because in a regular count a county with 8,000 people is counted the same as a county with 1,000,000. These graphs are just meant to show that there exist changes within the years whether accounting for the adjustment or not.
 Below those two histograms is a table that lists the 48 states and sorts them by net domestic migration. States are used here because just using counties would be far too long and it can illustrate some patterns that will be revisited in the results section, although right away it appears the correlation is not bared out on state level by seeing 3 of the top 5 states by proportion of net domestic migration actually gaining GOP "voteshare" even when adjusted. 
+
 ```{r,echo=FALSE}
 library(tidyverse)
   # 2020 Presidential Election
@@ -103,13 +105,15 @@ plot_dep_var_change
 ```
 
 
-```{r}
+```{r, echo=FALSE}
  # Table for all 50 states
 knitr::kable(percent_gop_50_states, col.names = c("State", "Net Domestic Migration Proportion", "GOP Voteshare Change Adjusted", "GOP Voteshare Change", "2020 Population"))
 ```
 
 
-# Analysis of Main Relationship
+## Results Section: 
+This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.
+
 ```{r, echo=FALSE}
 plot_basic <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=(per_gop_change * 100))) + 
   geom_point() + 
@@ -123,7 +127,7 @@ plot_basic <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=(pe
 plot_basic
 ```
 
-This first graph simply plots each county in every state except for Alaska and Connecticut based on their net proportional domestic migration between the 2020 and 2024 elections and the change in the percent of votes that went to the GOP from the 2020 election to the 2024 election. The dashed line represents no change in vote share and the blue line represents the line of best fit. This graph has a clear negative correlation, meaning that as net proportional domestic migration increases the change in percent votes for the GOP in that county is, on average, likely to decrease. There are some flaws in this graph that hinder a perfect representation. The first flaw is that the national vote share for the GOP has not remained constant between 2020 and 2024; in fact, it increased by 2.95 percentage points.
+This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share's change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn't misrepresent the changes in each county. There is still another issue: not all these counties have the same population.
 
 ```{r, echo=FALSE}
 plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change_adjusted) * 100))) + 
@@ -138,7 +142,8 @@ plot_basic_adjusted <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 10
 
   plot_basic_adjusted
 ```
-This graph adjusts the former graph by showing the change of the percent of GOP votes from the national average. In other words, this value is found by subtracting the GOP percent in 2020 from 2024. This value is 2.95 percentage points (the same calculation for Democrats was -2.99 percentage points, so the third party share's change was negligible). This table shows the exact same relationship as the previous graph, it is just adjusted so the vast swing of the national vote share doesn't misrepresent the changes in each county. There is still another issue: not all these counties have the same population.
+
+This third graph does the same thing as the second, except the line of best fit is calculated by weighting each data point (county) by its population. This means counties with a greater population will be considered as more consequential than one with a smaller population. Basically, if one county is 10,000 and the other 100,000, then the latter is weighted more. This graph shows that the magnitude of the negative relationship is actually greater when adjusted for population (more negative slope for the line of best fit), meaning this trend is likely more common among more urban counties. 
 
 ```{r,echo=FALSE}
 plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mig_per * 100), y=((per_gop_change_adjusted)*100))) + 
@@ -153,31 +158,5 @@ plot_basic_adjusted_no_points <- ggplot(focused_per_gop, mapping = aes(x=(dom_mi
   
 plot_basic_adjusted_no_points
 ```
-This third graph does the same thing as the second, except the line of best fit is calculated by weighting each data point (county) by its population. This means counties with a greater population will be considered as more consequential than one with a smaller population. Basically, if one county is 10,000 and the other 100,000, then the latter is weighted more. This graph shows that the magnitude of the negative relationship is actually greater when adjusted for population (more negative slope for the line of best fit), meaning this trend is possibly more common among more urban counties. 
 
-These three graphs each move closer to the conclusion that counties with meaningful negative net domestic migration tend to increase their percentage of GOP votes and counties with meaningful positive net domestic migration tend to decrease their percentage of GOP votes. These two phenomenon become more likely and greater in magnitude when the magnitude of the net domestic migration is greater.
-
-# Urban vs. Rural (work in progress)
-```{r, echo=FALSE}
-plot_50k <- focused_per_gop |> filter(population_2020 > 50000) |>
-  ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
-plot_50k
-```
-```{r, echo=FALSE}
-plot_10k_50k <- focused_per_gop |> filter(population_2020 >= 10000 & population_2020 <= 50000) |>
-  ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
-plot_10k_50k
-```
-
-```{r,echo=FALSE}
-plot_10k <- focused_per_gop |> filter(population_2020 < 10000) |>
-  ggplot(focused_per_gop, mapping = aes(x=dom_mig_per, y=per_gop_change)) + 
-  geom_point() + 
-  geom_smooth(method = "lm", se = FALSE)
-plot_10k
-```
-
+These three graphs each move closer to the conclusion that counties with meaningful negative net domestic migration tend to increase their percentage of GOP votes and counties with meaningful positive net domestic migration tend to decrease their percentage of GOP votes. These two phenomenon become more likely and greater in magnitude when the magnitude of the net domestic migration is greater. But is this bared out in a regression model?
